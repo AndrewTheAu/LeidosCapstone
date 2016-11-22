@@ -42,5 +42,9 @@ namespace WebApplication1 {
                 SqlDataSource1.SelectCommand += (String.Join(" AND ", clauses) + ")");
             }
         }
+
+        protected void SqlDataSource1_Selecting(object sender, SqlDataSourceSelectingEventArgs e) {
+
+        }
     }
 }

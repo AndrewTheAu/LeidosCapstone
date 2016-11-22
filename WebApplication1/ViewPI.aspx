@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link href="sticky-footer.css" rel="stylesheet">
     <title>Principal Investigators</title>
 </head>
 <body>
@@ -37,7 +38,7 @@
             </div>
         </div>
         <br />
-        <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="4" DataSourceID="SqlDataSource1" ForeColor="Black" GridLines="Horizontal" DataKeyNames="Investigator ID" AllowSorting="True" Width="746px">
+        <asp:GridView ID="GridView1" runat="server" ShowHeaderWhenEmpty="true" AutoGenerateColumns="False" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="4" DataSourceID="SqlDataSource1" ForeColor="Black" GridLines="Horizontal" DataKeyNames="Investigator ID" AllowSorting="True" Width="746px">
             <Columns>
                 <asp:BoundField DataField="Investigator ID" HeaderText="Investigator ID" SortExpression="Investigator ID" ReadOnly="True" />
                 <asp:BoundField DataField="First Name" HeaderText="First Name" SortExpression="First Name" />
@@ -54,7 +55,12 @@
             <SortedDescendingCellStyle BackColor="#E5E5E5" />
             <SortedDescendingHeaderStyle BackColor="#242121" />
         </asp:GridView>
-        <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString %>" SelectCommand="SELECT * FROM [Principal Investigator]"></asp:SqlDataSource>
+        <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString %>" SelectCommand="SELECT * FROM [Principal Investigator]" OnSelecting="SqlDataSource1_Selecting"></asp:SqlDataSource>
     </form>
+    <footer class="footer">
+        <div class="container">
+            <p class="text-muted"><a href="HomePage.aspx">Home</a></p>
+        </div>
+    </footer>
 </body>
 </html>
