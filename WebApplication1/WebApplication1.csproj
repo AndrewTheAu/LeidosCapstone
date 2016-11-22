@@ -183,7 +183,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Account\Web.config" />
-    <Content Include="sticky-footer.css" />
+    <Content Include="sticky-header.css" />
+    <Content Include="default.css" />
     <Content Include="ViewPI.aspx" />
     <Content Include="HomePage.aspx" />
     <Content Include="TEST.aspx" />

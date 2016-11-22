@@ -1,0 +1,14 @@
+﻿.container {
+    width: auto;
+    padding: 0 15px;
+}
+
+#filters {
+    border:1px solid black;
+    padding: 15px 15px;
+}
+
+input[type=text] {
+    margin-top: 2px;
+    margin-bottom: 2px;
+}

@@ -15,7 +15,7 @@
         This application just has three pages:<br />
         This page, the home page, that contains a link to the other two pages<br />
         The <a href="ViewPI.aspx">Principal Investigator</a> page, that lists all the principal investigators<br />
-        The <a href="ViewPI.aspx">Grants</a> Page, that lists all the grants</div>
+        The <a href="ViewGrant.aspx">Grants</a> Page, that lists all the grants</div>
     </form>
 </body>
 </html>
