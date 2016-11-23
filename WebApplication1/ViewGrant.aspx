@@ -1,0 +1,75 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ViewGrant.aspx.cs" Inherits="WebApplication1.WebForm4" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link href="default.css" rel="stylesheet">
+    <link href="sticky-header.css" rel="stylesheet">
+    <title>View Grants</title>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <header class="header">
+            <div class="container">
+                <p class="text-muted"><a class="headertext" href="HomePage.aspx">Home</a></p>
+            </div>
+        </header>
+        <div class="container">
+            <h1>Grants</h1>
+        </div>
+        <div class="container">
+            <ul class="nav nav-tabs">
+                <li class="active"><a data-toggle="tab" href="#home">View</a></li>
+                <li><a data-toggle="tab" href="#menu1">Add</a></li>
+                <li><a data-toggle="tab" href="#menu2">Edit</a></li>
+                <li><a data-toggle="tab" href="#menu3">Delete</a></li>
+            </ul>
+
+            <div class="tab-content">
+                <div id="home" class="tab-pane fade in active">
+                    <h3>HOME</h3>
+                    <div style="width: 745px">
+                        <br />
+                        <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#filters">Filter</button>
+                        <div id="filters" class="collapse">
+                            Grant #:
+                <asp:TextBox ID="id" runat="server"></asp:TextBox>
+                            <br />
+                            Research:
+                <asp:TextBox ID="firstname" runat="server"></asp:TextBox>
+                            <br />
+                            Principal Investigator:
+                <asp:TextBox ID="institution" runat="server"></asp:TextBox>
+                            <br />
+                            <br />
+                            <asp:Button ID="Button1" runat="server" Height="35px" OnClick="Button1_Click" Text="Search" Width="188px" />
+                            <br />
+                        </div>
+                    </div>
+                    <br />
+                </div>
+                <div id="menu1" class="tab-pane fade">
+                    <h3>Menu 1</h3>
+                    <p>Some content in menu 1.</p>
+                </div>
+                <div id="menu2" class="tab-pane fade">
+                    <h3>Menu 2</h3>
+                    <p>Some content in menu 2.</p>
+                </div>
+                <div id="menu3" class="tab-pane fade">
+                    <h3>Menu 3</h3>
+                    <p>Some content in menu 3.</p>
+                </div>
+            </div>
+
+        </div>
+        <br />
+
+        <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString %>" SelectCommand="SELECT * FROM [Grants]" OnSelecting="SqlDataSource1_Selecting"></asp:SqlDataSource>
+    </form>
+</body>
+</html>
