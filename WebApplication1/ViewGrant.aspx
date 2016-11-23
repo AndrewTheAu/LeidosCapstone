@@ -37,13 +37,13 @@
                         <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#filters">Filter</button>
                         <div id="filters" class="collapse">
                             Grant #:
-                <asp:TextBox ID="id" runat="server"></asp:TextBox>
+                <asp:TextBox ID="grantnumber" runat="server"></asp:TextBox>
                             <br />
                             Research:
-                <asp:TextBox ID="firstname" runat="server"></asp:TextBox>
+                <asp:TextBox ID="research" runat="server"></asp:TextBox>
                             <br />
                             Principal Investigator:
-                <asp:TextBox ID="institution" runat="server"></asp:TextBox>
+                <asp:TextBox ID="investigator" runat="server"></asp:TextBox>
                             <br />
                             <br />
                             <asp:Button ID="Button1" runat="server" Height="35px" OnClick="Button1_Click" Text="Search" Width="188px" />
@@ -54,7 +54,7 @@
                     <asp:GridView ID="GridView1" runat="server" ShowHeaderWhenEmpty="true" AllowSorting="True" AutoGenerateColumns="False" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="4" DataKeyNames="Id" DataSourceID="SqlDataSource1" ForeColor="Black" GridLines="Horizontal" Width="746px">
                         <Columns>
                             <asp:BoundField DataField="Id" HeaderText="Id" InsertVisible="False" ReadOnly="True" SortExpression="Id" />
-                            <asp:BoundField DataField="Grand Number" HeaderText="Grand Number" SortExpression="Grand Number" />
+                            <asp:BoundField DataField="Grant Number" HeaderText="Grant Number" SortExpression="Grant Number" />
                             <asp:BoundField DataField="Funded Research" HeaderText="Funded Research" SortExpression="Funded Research" />
                             <asp:BoundField DataField="Principal Investigator" HeaderText="Principal Investigator" SortExpression="Principal Investigator" />
                         </Columns>
@@ -69,15 +69,15 @@
                     </asp:GridView>
                 </div>
                 <div id="menu1" class="tab-pane fade">
-                    <h3>Menu 1</h3>
+                    <h3>Add To Table</h3>
                     <p>Some content in menu 1.</p>
                 </div>
                 <div id="menu2" class="tab-pane fade">
-                    <h3>Menu 2</h3>
+                    <h3>Delete From Table</h3>
                     <p>Some content in menu 2.</p>
                 </div>
                 <div id="menu3" class="tab-pane fade">
-                    <h3>Menu 3</h3>
+                    <h3>Edit Entries</h3>
                     <p>Some content in menu 3.</p>
                 </div>
             </div>

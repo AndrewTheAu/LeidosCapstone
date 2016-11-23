@@ -13,8 +13,26 @@ namespace WebApplication1 {
 
         protected void Button1_Click(object sender, EventArgs e) {
 
-            SqlDataSource1.SelectCommand = "SELECT * FROM[Principal Investigator]";
+            SqlDataSource1.SelectCommand = "SELECT * FROM[Grants]";
 
+            if (!(string.IsNullOrEmpty(grantnumber.Text) && string.IsNullOrEmpty(research.Text) && string.IsNullOrEmpty(investigator.Text))) {
+                SqlDataSource1.SelectCommand += " WHERE(";
+
+                List<String> clauses = new List<String>();
+                if (!string.IsNullOrEmpty(grantnumber.Text)) {
+                    clauses.Add("([Grant Number] like '%" + grantnumber.Text + "%')");
+                }
+
+                if (!string.IsNullOrEmpty(research.Text)) {
+                    clauses.Add("([Funded Research] like '%" + research.Text + "%')");
+                }
+
+                if (!string.IsNullOrEmpty(investigator.Text)) {
+                    clauses.Add("([Principal Investigator] like '%" + investigator.Text + "%')");
+                }
+
+                SqlDataSource1.SelectCommand += (String.Join(" AND ", clauses) + ")");
+            }
         }
 
         protected void SqlDataSource1_Selecting(object sender, SqlDataSourceSelectingEventArgs e) {
