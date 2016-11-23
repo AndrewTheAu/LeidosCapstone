@@ -15,32 +15,6 @@ namespace WebApplication1 {
 
             SqlDataSource1.SelectCommand = "SELECT * FROM[Principal Investigator]";
 
-            if (!(string.IsNullOrEmpty(id.Text) && string.IsNullOrEmpty(firstname.Text) && string.IsNullOrEmpty(lastname.Text) && string.IsNullOrEmpty(institution.Text) && string.IsNullOrEmpty(research.Text))) {
-                SqlDataSource1.SelectCommand += " WHERE(";
-
-                List<String> clauses = new List<String>();
-                if (!string.IsNullOrEmpty(id.Text)) {
-                    clauses.Add("([Investigator ID] = '" + id.Text + "')");
-                }
-
-                if (!string.IsNullOrEmpty(firstname.Text)) {
-                    clauses.Add("([First Name] = '" + firstname.Text + "')");
-                }
-
-                if (!string.IsNullOrEmpty(lastname.Text)) {
-                    clauses.Add("([Last Name] = '" + lastname.Text + "')");
-                }
-
-                if (!string.IsNullOrEmpty(institution.Text)) {
-                    clauses.Add("([Institution] = '" + institution.Text + "')");
-                }
-
-                if (!string.IsNullOrEmpty(research.Text)) {
-                    clauses.Add("([Research] = '" + research.Text + "')");
-                }
-
-                SqlDataSource1.SelectCommand += (String.Join(" AND ", clauses) + ")");
-            }
         }
 
         protected void SqlDataSource1_Selecting(object sender, SqlDataSourceSelectingEventArgs e) {
