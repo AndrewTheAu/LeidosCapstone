@@ -78,7 +78,10 @@
                 <asp:TextBox ID="TextBox2" runat="server"></asp:TextBox>
                         <br />
                         Principal Investigator:
-                <asp:TextBox ID="TextBox3" runat="server"></asp:TextBox>
+                <asp:DropDownList ID="DropDownList1" runat="server" DataSourceID="SqlDataSource2" DataTextField="Investigator_Name" DataValueField="Investigator_Name" AppendDataBoundItems="true" required="required">
+                    <asp:ListItem Value="" Text=""></asp:ListItem>
+                </asp:DropDownList>
+                <asp:RequiredFieldValidator ID="reqDDL1" runat="server" SetFocusOnError="true"  InitialValue="0" ErrorMessage="*" ControlToValidate="DropDownList1" />
                         <br />
                         <br />
                         <asp:Button ID="Button2" runat="server" Height="35px" OnClick="Button2_Click" Text="Insert" Width="188px" />
@@ -98,6 +101,7 @@
         </div>
 
         <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString %>" SelectCommand="SELECT * FROM [Grants]" OnSelecting="SqlDataSource1_Selecting"></asp:SqlDataSource>
+        <asp:SqlDataSource ID="SqlDataSource2" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString %>" SelectCommand="SELECT [First Name] + ' ' + [Last Name] AS Investigator_Name FROM [Principal Investigator]"></asp:SqlDataSource>
         <p>
             <asp:Label ID="Label1" runat="server" ForeColor="Red"></asp:Label>
         </p>

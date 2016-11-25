@@ -49,7 +49,7 @@ namespace WebApplication1 {
                 SqlCommand command = new SqlCommand("INSERT INTO Grants([Grant Number], [Funded Research], [Principal Investigator]) Values(@Number, @Research, @Investigator)", connection);
                 command.Parameters.AddWithValue("@Number", TextBox1.Text);
                 command.Parameters.AddWithValue("@Research", TextBox2.Text);
-                command.Parameters.AddWithValue("@Investigator", TextBox3.Text);
+                command.Parameters.AddWithValue("@Investigator", DropDownList1.Text);
 
                 connection.Open();
                 command.ExecuteNonQuery();
@@ -58,7 +58,6 @@ namespace WebApplication1 {
                 if (IsPostBack) {
                     TextBox1.Text = "";
                     TextBox2.Text = "";
-                    TextBox3.Text = "";
                     Page.Response.Redirect(Page.Request.Url.ToString(), true);
                 }
             }
