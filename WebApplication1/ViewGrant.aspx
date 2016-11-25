@@ -70,7 +70,20 @@
                 </div>
                 <div id="menu1" class="tab-pane fade">
                     <h3>Add To Table</h3>
-                    <p>Some content in menu 1.</p>
+                    <div>
+                        Grant #:
+                <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
+                        <br />
+                        Research:
+                <asp:TextBox ID="TextBox2" runat="server"></asp:TextBox>
+                        <br />
+                        Principal Investigator:
+                <asp:TextBox ID="TextBox3" runat="server"></asp:TextBox>
+                        <br />
+                        <br />
+                        <asp:Button ID="Button2" runat="server" Height="35px" OnClick="Button2_Click" Text="Insert" Width="188px" />
+                        <br />
+                    </div>
                 </div>
                 <div id="menu2" class="tab-pane fade">
                     <h3>Delete From Table</h3>
@@ -85,6 +98,9 @@
         </div>
 
         <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString %>" SelectCommand="SELECT * FROM [Grants]" OnSelecting="SqlDataSource1_Selecting"></asp:SqlDataSource>
+        <p>
+            <asp:Label ID="Label1" runat="server" ForeColor="Red"></asp:Label>
+        </p>
     </form>
 </body>
 </html>
