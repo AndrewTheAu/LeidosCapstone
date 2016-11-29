@@ -188,7 +188,6 @@
     <Content Include="ViewPI.aspx" />
     <Content Include="HomePage.aspx" />
     <Content Include="TEST.aspx" />
-    <Content Include="ViewGrant.aspx" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -415,13 +414,6 @@
     </Compile>
     <Compile Include="TEST.aspx.designer.cs">
       <DependentUpon>TEST.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="ViewGrant.aspx.cs">
-      <DependentUpon>ViewGrant.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="ViewGrant.aspx.designer.cs">
-      <DependentUpon>ViewGrant.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup />
