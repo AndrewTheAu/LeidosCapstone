@@ -185,10 +185,8 @@
     <Content Include="Account\Web.config" />
     <Content Include="sticky-header.css" />
     <Content Include="default.css" />
-    <Content Include="ViewGrant.aspx" />
     <Content Include="ViewPI.aspx" />
     <Content Include="HomePage.aspx" />
-    <Content Include="TEST.aspx" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -388,13 +386,6 @@
       <DependentUpon>Site.Mobile.Master</DependentUpon>
     </Compile>
     <Compile Include="Startup.cs" />
-    <Compile Include="ViewGrant.aspx.cs">
-      <DependentUpon>ViewGrant.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="ViewGrant.aspx.designer.cs">
-      <DependentUpon>ViewGrant.aspx</DependentUpon>
-    </Compile>
     <Compile Include="ViewSwitcher.ascx.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -415,13 +406,6 @@
     </Compile>
     <Compile Include="HomePage.aspx.designer.cs">
       <DependentUpon>HomePage.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="TEST.aspx.cs">
-      <DependentUpon>TEST.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="TEST.aspx.designer.cs">
-      <DependentUpon>TEST.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup />
