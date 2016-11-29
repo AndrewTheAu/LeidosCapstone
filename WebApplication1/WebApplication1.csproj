@@ -185,6 +185,7 @@
     <Content Include="Account\Web.config" />
     <Content Include="sticky-header.css" />
     <Content Include="default.css" />
+    <Content Include="ViewGrant.aspx" />
     <Content Include="ViewPI.aspx" />
     <Content Include="HomePage.aspx" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -386,6 +387,13 @@
       <DependentUpon>Site.Mobile.Master</DependentUpon>
     </Compile>
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewGrant.aspx.cs">
+      <DependentUpon>ViewGrant.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewGrant.aspx.designer.cs">
+      <DependentUpon>ViewGrant.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ViewSwitcher.ascx.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

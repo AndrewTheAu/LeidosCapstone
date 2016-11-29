@@ -64,6 +64,24 @@
                 </div>
                 <div id="menu1" class="tab-pane fade">
                     <h3>Add To Table</h3>
+                    <div>
+                        Grant #:
+                <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
+                        <br />
+                        Research:
+                <asp:TextBox ID="TextBox2" runat="server"></asp:TextBox>
+                        <br />
+                        Principal Investigator:
+                        <asp:SqlDataSource ID="InvestigatorSource" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString %>" SelectCommand="SELECT [First Name] + ' ' + [Last Name] AS Investigator_Name FROM [Principal Investigator]"></asp:SqlDataSource>
+                        <asp:DropDownList ID="DropDownList1" runat="server" DataSourceID="InvestigatorSource" DataTextField="Investigator_Name" DataValueField="Investigator_Name" AppendDataBoundItems="true">
+                            <asp:ListItem Value="" Text=""></asp:ListItem>
+                        </asp:DropDownList>
+                        <%--<asp:RequiredFieldValidator ID="reqDDL1" runat="server" SetFocusOnError="true" InitialValue="0" ErrorMessage="*" ControlToValidate="DropDownList1" />--%>
+                        <br />
+                        <br />
+                        <asp:Button ID="Button2" runat="server" Height="35px" OnClick="Button2_Click" Text="Insert" Width="188px" />
+                        <br />
+                    </div>
                 </div>
                 <div id="menu2" class="tab-pane fade">
                     <h3>Delete From Table</h3>
