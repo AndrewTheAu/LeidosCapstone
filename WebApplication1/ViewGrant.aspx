@@ -37,13 +37,13 @@
                         <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#filters">Filter</button>
                         <div id="filters" class="collapse">
                             Grant #:
-                <asp:TextBox ID="id" runat="server"></asp:TextBox>
+                <asp:TextBox ID="grantnumber" runat="server"></asp:TextBox>
                             <br />
                             Research:
-                <asp:TextBox ID="firstname" runat="server"></asp:TextBox>
+                <asp:TextBox ID="research" runat="server"></asp:TextBox>
                             <br />
                             Principal Investigator:
-                <asp:TextBox ID="institution" runat="server"></asp:TextBox>
+                <asp:TextBox ID="investigator" runat="server"></asp:TextBox>
                             <br />
                             <br />
                             <asp:Button ID="Button1" runat="server" Height="35px" OnClick="Button1_Click" Text="Search" Width="188px" />
@@ -51,25 +51,60 @@
                         </div>
                     </div>
                     <br />
+                    <asp:GridView ID="GridView1" runat="server" ShowHeaderWhenEmpty="true" AllowSorting="True" AutoGenerateColumns="False" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="4" DataKeyNames="Id" DataSourceID="SqlDataSource1" ForeColor="Black" GridLines="Horizontal" Width="746px">
+                        <Columns>
+                            <asp:BoundField DataField="Id" HeaderText="Id" InsertVisible="False" ReadOnly="True" SortExpression="Id" />
+                            <asp:BoundField DataField="Grant Number" HeaderText="Grant Number" SortExpression="Grant Number" />
+                            <asp:BoundField DataField="Funded Research" HeaderText="Funded Research" SortExpression="Funded Research" />
+                            <asp:BoundField DataField="Principal Investigator" HeaderText="Principal Investigator" SortExpression="Principal Investigator" />
+                        </Columns>
+                        <FooterStyle BackColor="#CCCC99" ForeColor="Black" />
+                        <HeaderStyle BackColor="#333333" Font-Bold="True" ForeColor="White" />
+                        <PagerStyle BackColor="White" ForeColor="Black" HorizontalAlign="Right" />
+                        <SelectedRowStyle BackColor="#CC3333" Font-Bold="True" ForeColor="White" />
+                        <SortedAscendingCellStyle BackColor="#F7F7F7" />
+                        <SortedAscendingHeaderStyle BackColor="#4B4B4B" />
+                        <SortedDescendingCellStyle BackColor="#E5E5E5" />
+                        <SortedDescendingHeaderStyle BackColor="#242121" />
+                    </asp:GridView>
                 </div>
                 <div id="menu1" class="tab-pane fade">
-                    <h3>Menu 1</h3>
-                    <p>Some content in menu 1.</p>
+                    <h3>Add To Table</h3>
+                    <div>
+                        Grant #:
+                <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
+                        <br />
+                        Research:
+                <asp:TextBox ID="TextBox2" runat="server"></asp:TextBox>
+                        <br />
+                        Principal Investigator:
+                <asp:DropDownList ID="DropDownList1" runat="server" DataSourceID="SqlDataSource2" DataTextField="Investigator_Name" DataValueField="Investigator_Name" AppendDataBoundItems="true" required="required">
+                    <asp:ListItem Value="" Text=""></asp:ListItem>
+                </asp:DropDownList>
+                <asp:RequiredFieldValidator ID="reqDDL1" runat="server" SetFocusOnError="true"  InitialValue="0" ErrorMessage="*" ControlToValidate="DropDownList1" />
+                        <br />
+                        <br />
+                        <asp:Button ID="Button2" runat="server" Height="35px" OnClick="Button2_Click" Text="Insert" Width="188px" />
+                        <br />
+                    </div>
                 </div>
                 <div id="menu2" class="tab-pane fade">
-                    <h3>Menu 2</h3>
+                    <h3>Delete From Table</h3>
                     <p>Some content in menu 2.</p>
                 </div>
                 <div id="menu3" class="tab-pane fade">
-                    <h3>Menu 3</h3>
+                    <h3>Edit Entries</h3>
                     <p>Some content in menu 3.</p>
                 </div>
             </div>
 
         </div>
-        <br />
 
         <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString %>" SelectCommand="SELECT * FROM [Grants]" OnSelecting="SqlDataSource1_Selecting"></asp:SqlDataSource>
+        <asp:SqlDataSource ID="SqlDataSource2" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString %>" SelectCommand="SELECT [First Name] + ' ' + [Last Name] AS Investigator_Name FROM [Principal Investigator]"></asp:SqlDataSource>
+        <p>
+            <asp:Label ID="Label1" runat="server" ForeColor="Red"></asp:Label>
+        </p>
     </form>
 </body>
 </html>
