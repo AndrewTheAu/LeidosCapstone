@@ -8,19 +8,16 @@ using System.Data.SqlClient;
 using System.Configuration;
 
 namespace WebApplication1 {
-    public partial class WebForm4 : System.Web.UI.Page {
+    public partial class ViewGrant : System.Web.UI.Page {
         protected void Page_Load(object sender, EventArgs e) {
-            if (Page.IsPostBack == true) {
-                Label1.Text = ("Successfully inserted");
-            }
+
         }
 
         protected void Button1_Click(object sender, EventArgs e) {
-
-            SqlDataSource1.SelectCommand = "SELECT * FROM[Grants]";
+            GrantSource.SelectCommand = "SELECT [Grant Number] AS Grant_Number, [Funded Research] AS Funded_Research, [Principal Investigator] AS Principal_Investigator FROM [Grants]";
 
             if (!(string.IsNullOrEmpty(grantnumber.Text) && string.IsNullOrEmpty(research.Text) && string.IsNullOrEmpty(investigator.Text))) {
-                SqlDataSource1.SelectCommand += " WHERE(";
+                GrantSource.SelectCommand += " WHERE(";
 
                 List<String> clauses = new List<String>();
                 if (!string.IsNullOrEmpty(grantnumber.Text)) {
@@ -35,12 +32,11 @@ namespace WebApplication1 {
                     clauses.Add("([Principal Investigator] like '%" + investigator.Text + "%')");
                 }
 
-                SqlDataSource1.SelectCommand += (String.Join(" AND ", clauses) + ")");
+                GrantSource.SelectCommand += (String.Join(" AND ", clauses) + ")");
             }
-        }
 
-        protected void SqlDataSource1_Selecting(object sender, SqlDataSourceSelectingEventArgs e) {
-
+            GrantSource.DataBind();
+            GridView1.DataBind();
         }
 
         protected void Button2_Click(object sender, EventArgs e) {
