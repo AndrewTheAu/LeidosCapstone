@@ -11,7 +11,11 @@ using System.Data;
 namespace WebApplication1 {
     public partial class ViewGrant : System.Web.UI.Page {
         protected void Page_Load(object sender, EventArgs e) {
+            ToDelete();
+        }
 
+        protected void AddBlank(object sender, EventArgs e) {
+            ((DropDownList)sender).Items.Insert(0, new ListItem("", ""));
         }
 
         protected void Button1_Click(object sender, EventArgs e) {
@@ -60,19 +64,96 @@ namespace WebApplication1 {
             }
         }
 
-        protected void NewGrantNumber(SqlConnection connection) {
+        protected void Button3_Click(object sender, EventArgs e) {
+            SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ToString());
+            {
+                String command = "DELETE FROM [Grants]";
 
+                if ((DropDownList2.SelectedValue != "") || (DropDownList3.SelectedValue != "") || (DropDownList4.SelectedValue != "")) {
+                    command += " WHERE (";
+
+                    List<String> clauses = new List<String>();
+                    if (DropDownList2.SelectedValue != "") {
+                        clauses.Add($"([Grant Number] = '{DropDownList2.SelectedValue}')");
+                    }
+
+                    if (DropDownList3.SelectedValue != "") {
+                        clauses.Add($"([Funded Research] = '{DropDownList3.SelectedValue}')");
+                    }
+
+                    if (DropDownList4.SelectedValue != "") {
+                        clauses.Add($"([Principal Investigator] = '{DropDownList4.SelectedValue}')");
+                    }
+
+                    command += (String.Join(" AND ", clauses) + ")");
+                }
+
+                SqlCommand SQLCommand = new SqlCommand(command, connection);
+                connection.Open();
+                SQLCommand.ExecuteNonQuery();
+                connection.Close();
+
+                GridView1.DataBind();
+
+                DropDownList2.SelectedIndex = 0;
+                DropDownList3.SelectedIndex = 0;
+                DropDownList4.SelectedIndex = 0;
+                GridView2.DataBind();
+            }
+
+            ToDelete();
         }
 
-        protected void NewFundedResearch(SqlConnection connection) {
-            string CMDString = "SELECT [Funded Research] AS Funded_Research FROM [Grants]";
-            if (DropDownList2.SelectedValue != "" || DropDownList4.SelectedValue != "") {
-                if (DropDownList2.SelectedValue != "" && DropDownList4.SelectedValue != "") {
-                    CMDString += $" WHERE [Grant Number] = '{DropDownList2.SelectedValue}' AND [Principal Investigator] = '{DropDownList4.SelectedValue}'";
-                } else if (DropDownList2.SelectedValue != "") {
-                    CMDString += $" WHERE [Grant Number] = '{DropDownList2.SelectedValue}'";
+        protected void ToDelete() {
+            SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ToString());
+            {
+                String command = "SELECT [Grant Number] AS Grant_Number, [Funded Research] AS Funded_Research, [Principal Investigator] AS Principal_Investigator FROM [Grants]";
+
+                if ((DropDownList2.SelectedValue != "") || (DropDownList3.SelectedValue != "") || (DropDownList4.SelectedValue != "")) {
+                    command += " WHERE (";
+
+                    List<String> clauses = new List<String>();
+                    if (DropDownList2.SelectedValue != "") {
+                        clauses.Add($"([Grant Number] = '{DropDownList2.SelectedValue}')");
+                    }
+
+                    if (DropDownList3.SelectedValue != "") {
+                        clauses.Add($"([Funded Research] = '{DropDownList3.SelectedValue}')");
+                    }
+
+                    if (DropDownList4.SelectedValue != "") {
+                        clauses.Add($"([Principal Investigator] = '{DropDownList4.SelectedValue}')");
+                    }
+
+                    command += (String.Join(" AND ", clauses) + ")");
+                }
+
+                //Label1.Text = command;
+                SqlCommand SQLCommand = new SqlCommand(command, connection);
+
+                DataTable table = new DataTable();
+
+                SqlDataAdapter adapter = new SqlDataAdapter(SQLCommand);
+
+                adapter.Fill(table);
+
+                GridView2.DataSourceID = null;
+                GridView2.DataSource = table;
+                GridView2.DataBind();
+            }
+        }
+
+        protected void UpdateDDL(SqlConnection connection,
+                DropDownList update, DropDownList dependancy1, DropDownList dependancy2,
+                String updateName, String dependancy1Name, String dependancy2Name) {
+            string CMDString = $"SELECT DISTINCT [{updateName.Replace("_", " ")}] AS {updateName} FROM [Grants]";
+            if (dependancy1.SelectedValue != "" || dependancy2.SelectedValue != "") {
+                if (dependancy1.SelectedValue != "" && dependancy2.SelectedValue != "") {
+                    CMDString += $" WHERE [{dependancy1Name}] = '{dependancy1.SelectedValue}' AND [{dependancy2Name}] = '{dependancy2.SelectedValue}'";
+                } else if (dependancy1.SelectedValue != "") {
+                    CMDString += $" WHERE [{dependancy1Name}] = '{dependancy1.SelectedValue}'";
                 } else {
-                    CMDString += $" WHERE [Principal Investigator] = '{DropDownList4.SelectedValue}'";
+                    CMDString += $" WHERE [{dependancy2Name}] = '{dependancy2.SelectedValue}'";
                 }
             }
 
@@ -83,24 +164,24 @@ namespace WebApplication1 {
 
             adapter.Fill(table);
 
-            Label2.Text = CMDString;
-            DropDownList3.DataSourceID = null;
-            DropDownList3.DataSource = table;
-            DropDownList3.DataTextField = "Funded_Research";
-            DropDownList3.DataBind();
-        }
-
-        protected void NewInvestigator(SqlConnection connection) {
-
+            update.DataSourceID = null;
+            update.DataSource = table;
+            update.DataTextField = updateName;
+            String temp = update.SelectedValue;
+            update.DataBind();
+            if (update.Items.FindByValue(temp) != null) {
+                update.Items.FindByValue(temp).Selected = true;
+            }
+            ToDelete();
         }
 
         protected void UpdateDropDown(object sender, EventArgs e) {
             SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ToString());
             {
                 connection.Open();
-                NewGrantNumber(connection);
-                NewFundedResearch(connection);
-                NewInvestigator(connection);
+                UpdateDDL(connection, DropDownList2, DropDownList3, DropDownList4, "Grant_Number", "Funded Research", "Principal Investigator");
+                UpdateDDL(connection, DropDownList3, DropDownList2, DropDownList4, "Funded_Research", "Grant Number", "Principal Investigator");
+                UpdateDDL(connection, DropDownList4, DropDownList2, DropDownList3, "Principal_Investigator", "Grant Number", "Funded Research");
             }
         }
 
