@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data.SqlClient;
 using System.Configuration;
+using System.Data;
 
 namespace WebApplication1 {
     public partial class ViewGrant : System.Web.UI.Page {
@@ -58,7 +59,52 @@ namespace WebApplication1 {
                 }
             }
         }
-    }
 
+        protected void NewGrantNumber(SqlConnection connection) {
+
+        }
+
+        protected void NewFundedResearch(SqlConnection connection) {
+            string CMDString = "SELECT [Funded Research] AS Funded_Research FROM [Grants]";
+            if (DropDownList2.SelectedValue != "" || DropDownList4.SelectedValue != "") {
+                if (DropDownList2.SelectedValue != "" && DropDownList4.SelectedValue != "") {
+                    CMDString += $" WHERE [Grant Number] = '{DropDownList2.SelectedValue}' AND [Principal Investigator] = '{DropDownList4.SelectedValue}'";
+                } else if (DropDownList2.SelectedValue != "") {
+                    CMDString += $" WHERE [Grant Number] = '{DropDownList2.SelectedValue}'";
+                } else {
+                    CMDString += $" WHERE [Principal Investigator] = '{DropDownList4.SelectedValue}'";
+                }
+            }
+
+            SqlCommand CMD = new SqlCommand(CMDString, connection);
+            DataTable table = new DataTable();
+
+            SqlDataAdapter adapter = new SqlDataAdapter(CMD);
+
+            adapter.Fill(table);
+
+            Label2.Text = CMDString;
+            DropDownList3.DataSourceID = null;
+            DropDownList3.DataSource = table;
+            DropDownList3.DataTextField = "Funded_Research";
+            DropDownList3.DataBind();
+        }
+
+        protected void NewInvestigator(SqlConnection connection) {
+
+        }
+
+        protected void UpdateDropDown(object sender, EventArgs e) {
+            SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ToString());
+            {
+                connection.Open();
+                NewGrantNumber(connection);
+                NewFundedResearch(connection);
+                NewInvestigator(connection);
+            }
+        }
+
+
+    }
 
 }

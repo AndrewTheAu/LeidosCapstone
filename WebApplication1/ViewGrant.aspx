@@ -27,8 +27,8 @@
             <ul class="nav nav-tabs">
                 <li class="active"><a data-toggle="tab" href="#home">View</a></li>
                 <li><a data-toggle="tab" href="#menu1">Add</a></li>
-                <li><a data-toggle="tab" href="#menu2">Edit</a></li>
-                <li><a data-toggle="tab" href="#menu3">Delete</a></li>
+                <li><a data-toggle="tab" href="#menu2">Delete</a></li>
+                <li><a data-toggle="tab" href="#menu3">Edit</a></li>
             </ul>
             <div class="tab-content">
                 <div id="home" class="tab-pane fade in active">
@@ -52,13 +52,21 @@
                                 <br />
                             </div>
                             <br />
-                            <asp:GridView ID="GridView1" runat="server" AllowSorting="True" AutoGenerateColumns="False" DataSourceID="GrantSource">
-                                <Columns>
-                                    <asp:BoundField DataField="Grant_Number" HeaderText="Grant_Number" SortExpression="Grant_Number" />
-                                    <asp:BoundField DataField="Funded_Research" HeaderText="Funded_Research" SortExpression="Funded_Research" />
-                                    <asp:BoundField DataField="Principal_Investigator" HeaderText="Principal_Investigator" SortExpression="Principal_Investigator" />
-                                </Columns>
-                            </asp:GridView>
+                            <asp:GridView ID="GridView1" runat="server" ShowHeaderWhenEmpty="True" AllowSorting="True" AutoGenerateColumns="False" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="4" DataSourceID="GrantSource" ForeColor="Black" GridLines="Horizontal" Width="746px">
+                        <Columns>
+                            <asp:BoundField DataField="Grant_Number" HeaderText="Grant_Number" SortExpression="Grant_Number" />
+                            <asp:BoundField DataField="Funded_Research" HeaderText="Funded_Research" SortExpression="Funded_Research" />
+                            <asp:BoundField DataField="Principal_Investigator" HeaderText="Principal_Investigator" SortExpression="Principal_Investigator" />
+                        </Columns>
+                        <FooterStyle BackColor="#CCCC99" ForeColor="Black" />
+                        <HeaderStyle BackColor="#333333" Font-Bold="True" ForeColor="White" />
+                        <PagerStyle BackColor="White" ForeColor="Black" HorizontalAlign="Right" />
+                        <SelectedRowStyle BackColor="#CC3333" Font-Bold="True" ForeColor="White" />
+                        <SortedAscendingCellStyle BackColor="#F7F7F7" />
+                        <SortedAscendingHeaderStyle BackColor="#4B4B4B" />
+                        <SortedDescendingCellStyle BackColor="#E5E5E5" />
+                        <SortedDescendingHeaderStyle BackColor="#242121" />
+                    </asp:GridView>
                         </ContentTemplate>
                     </asp:UpdatePanel>
                 </div>
@@ -85,7 +93,28 @@
                 </div>
                 <div id="menu2" class="tab-pane fade">
                     <h3>Delete From Table</h3>
-                    <p>Some content in menu 2.</p>
+                    <asp:SqlDataSource ID="PrincipalInvestigatorData" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString %>" SelectCommand="SELECT [First Name] + ' ' + [Last Name] AS Investigator_Name FROM [Principal Investigator]"></asp:SqlDataSource>
+                    <asp:SqlDataSource ID="GrantNumberData" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString %>" SelectCommand="SELECT [Grant Number] AS Grant_Number FROM [Grants]"></asp:SqlDataSource>
+                    <asp:SqlDataSource ID="FundedResearchData" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString %>" SelectCommand="SELECT [Funded Research] AS Funded_Research FROM [Grants]"></asp:SqlDataSource>
+                    <asp:UpdatePanel ID="UpdatePanel2" runat="server">
+                        <ContentTemplate>
+
+
+                            <asp:DropDownList ID="DropDownList2" runat="server" AppendDataBoundItems="true" AutoPostBack="True" DataSourceID="GrantNumberData" DataTextField="Grant_Number" DataValueField="Grant_Number" OnSelectedIndexChanged="UpdateDropDown" EnableViewState="true">
+                                <asp:ListItem Text="" Value=""></asp:ListItem>
+                            </asp:DropDownList>
+                            <asp:DropDownList ID="DropDownList3" runat="server" AppendDataBoundItems="true" AutoPostBack="True" DataSourceID="FundedResearchData" DataTextField="Funded_Research" DataValueField="Funded_Research" OnSelectedIndexChanged="UpdateDropDown" EnableViewState="true">
+                                <asp:ListItem Text="" Value=""></asp:ListItem>
+                            </asp:DropDownList>
+                            <asp:DropDownList ID="DropDownList4" runat="server" AppendDataBoundItems="true" AutoPostBack="True" DataSourceID="PrincipalInvestigatorData" DataTextField="Investigator_Name" DataValueField="Investigator_Name" OnSelectedIndexChanged="UpdateDropDown" EnableViewState="true">
+                                <asp:ListItem Text="" Value=""></asp:ListItem>
+                            </asp:DropDownList>
+                            <asp:Label ID="Label2" runat="server" ForeColor="Red"></asp:Label>
+                        </ContentTemplate>
+                        <Triggers>
+                            <asp:AsyncPostBackTrigger ControlID="DropDownList3" EventName="SelectedIndexChanged" />
+                        </Triggers>
+                    </asp:UpdatePanel>
                 </div>
                 <div id="menu3" class="tab-pane fade">
                     <h3>Edit Entries</h3>
